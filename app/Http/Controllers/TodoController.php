@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Task;
+use Illuminate\Support\Facades\Auth;
 
 class TodoController extends Controller
 {
@@ -34,7 +36,19 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $file = request()->file('file')->getClientOriginalName();
+        request()->file('file')->storeAs('public/images', $file);
+
+
+        $todo = new Task;
+        $todo -> title = $request -> title;
+        $todo -> file = $file;
+        $todo -> contents = $request -> contents;
+        $todo -> user_id = Auth::id();
+
+        $todo -> save();
+
+        // return redirect()->route('todo.index');
     }
 
     /**

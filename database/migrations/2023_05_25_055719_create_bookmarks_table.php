@@ -15,14 +15,10 @@ class CreateBookmarksTable extends Migration
     {
         Schema::create('bookmarks', function (Blueprint $table) {
             $table->id();
-            // $table->unsignedBigInteger('task_id')
-            // ->onDelete('cascade')
-            // ->onUpdate('cascade');
-            // $table->foreign('user_id')->references('id')->on('users')
-            // $table->foreignId('task_id')
-            // ->constrained()
-            // ->onUpdate('cascade')
-            // ->onDelete('cascade');
+            $table->foreignId('task_id')
+            ->constrained()
+            ->onUpdate('cascade')
+            ->onDelete('cascade');
             $table->foreignId('user_id')
             ->constrained()
             ->onUpdate('cascade')
