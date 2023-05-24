@@ -16,6 +16,9 @@ class TodoController extends Controller
     public function index()
     {
         //
+        $task=Task::latest();
+        return view('todo.index',['tasks' => $task]);
+
     }
 
     /**

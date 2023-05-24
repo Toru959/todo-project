@@ -30,7 +30,3 @@ require __DIR__.'/auth.php';
 // });
 
 Route::resource('todo', TodoController::class);
-
-Route::get('/index', function () {
-    return view('todo.index');
-});
