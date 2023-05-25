@@ -29,4 +29,21 @@ require __DIR__.'/auth.php';
 //     return view('todo.edit');
 // });
 
-Route::resource('todo', TodoController::class);
+// 初めてだとわかりにくい？
+// Route::resource('todo', TodoController::class);
+
+
+// こっちの方が書き方がオシャレ
+Route::prefix('todo')
+->middleware('auth')
+->name('todo.')
+->controller(TodoController::class)
+->group(function(){
+    Route::get('/', 'index')->name('index');
+    Route::get('/create', 'create')->name('create');
+    Route::post('/', 'store')->name('store');
+    Route::get('/show/{id}', 'show')->name('show');
+    Route::get('/{id}/edit', 'edit')->name('edit');
+    Route::patch('/update/{id}', 'update')->name('update');
+    Route::post('/destroy/{id}', 'destroy')->name('destroy');
+});

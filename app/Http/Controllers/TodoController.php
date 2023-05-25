@@ -56,7 +56,7 @@ class TodoController extends Controller
 
         $todo -> save();
 
-        // return redirect()->route('todo.index');
+        return redirect()->route('todo.index');
     }
 
     /**
@@ -67,10 +67,17 @@ class TodoController extends Controller
      */
     public function show($id)
     {
+
         $task = Task::find($id);
-        // dd($id);
-        return view('todo.show', compact('task'));
+
+        // DB上に＄idが存在しなければ404を返す。
+        if (!$task) { 
+            abort(404);
+        }else{
+            return view('todo.show', compact('task'));
+        }
     }
+
 
     /**
      * Show the form for editing the specified resource.
@@ -80,10 +87,18 @@ class TodoController extends Controller
      */
     public function edit($id)
     {
-        
         // dd(Task::find($id));
         $todo = Task::find($id);
-        return view('todo.edit', ['todo'=>$todo]);
+
+        if (!$todo) { 
+            abort(404);
+        }else{
+            return view('todo.edit', ['todo'=>$todo]);
+        }
+
+        //追記
+        return redirect()->route('todo.index');
+        
     }
 
     /**
@@ -95,7 +110,6 @@ class TodoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // dd($id);
         $todo = Task::find($id);
 
         $todo -> title = $request -> title;
@@ -103,7 +117,8 @@ class TodoController extends Controller
         $todo -> contents = $request -> contents;
         $todo -> save();
 
-        // return view('todo.show',compact('todo'));
+        //追記
+        return redirect()->route('todo.index');
     }
 
     /**
