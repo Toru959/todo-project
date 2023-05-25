@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class TodoController extends Controller
@@ -17,6 +18,10 @@ class TodoController extends Controller
     {
         //
         $tasks=Task::all();
+        // $user = User::all();
+
+        // dd($user);
+        
         return view('todo.index',['tasks' => $tasks]);
 
     }
@@ -62,7 +67,9 @@ class TodoController extends Controller
      */
     public function show($id)
     {
-        return view('todo.show');
+        $task = Task::find($id);
+        // dd($id);
+        return view('todo.show', compact('task'));
     }
 
     /**
