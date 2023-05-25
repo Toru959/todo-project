@@ -25,8 +25,8 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-// Route::get('/create', function () {
-//     return view('create');
-// });
+Route::get('/todo/edit', function () {
+    return view('todo.edit');
+});
 
 Route::resource('todo', TodoController::class);

@@ -12,7 +12,6 @@ class Task extends Model
     protected $fillable = [
         'title',
         'contents',
-        'password',
-        'image_at', //imageを登録した日付？
+        'file', 
     ];
 }
