@@ -9,9 +9,9 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    {{-- <form method="post" action="{{ route('todo.update', ['todo'=>$todo->id]) }}" enctype="multipart/form-data"> --}}
+                    <form method="post" action="{{ route('todo.update', ['id'=>$todo->id]) }}" enctype="multipart/form-data">
                     @csrf
-                    @method('put')
+                    @method('patch')
                         <section class="text-gray-600 body-font relative">
                             <div class="container px-5 py-24 mx-auto">
                             <div class="flex flex-col text-center w-full mb-12">
@@ -22,7 +22,7 @@
                                 <div class="p-2 w-full">
                                     <div class="relative">
                                     <label for="title" class="leading-7 text-sm text-gray-600">タイトル</label>
-                                    <input type="title" id="title" name="title" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                    <input type="title" id="title" name="title" value="{{ $todo->title }}" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                     </div>
                                 </div>
                                 <div class="flex flex-wrap -m-2">
