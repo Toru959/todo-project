@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class TodoController extends Controller
 {
@@ -47,11 +48,25 @@ class TodoController extends Controller
         $request->validate([
             'title' => 'required|string|max:258',
             'contents' => 'required|string|max:1000',
+            //fileは必須　追加
+            'file' => 'required|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
         $file = request()->file('file')->getClientOriginalName();
         request()->file('file')->storeAs('public/images', $file);
 
+        // $imageFile = $request->file;
+        // if(!is_null($imageFile) && $imageFile->isValid()){
+        //     Storage::putFile('public/images', $imageFile);
+        // }
+
+
+
+        // 画像が添付されている場合
+        // $imagePath = 'storage/public/images/'.$imageFile;
+
+        // 画像が添付されていない場合
+        // $imagePath = null;
 
         $todo = new Task;
         $todo -> title = $request -> title;
@@ -115,15 +130,32 @@ class TodoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'title' => 'required|string|max:258',
+            'contents' => 'required|string|max:1000',
+            // fileは必須　追加
+            'file' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        $file = request()->file('file')->getClientOriginalName();
+        request()->file('file')->storeAs('public/images', $file);
+
+        // 画像なしでも処理は通るが、一覧ページの画像の表示がおかしい。要修正
+        // if(!is_null($request->file)){
+        //     $file = request()->file('file')->getClientOriginalName();
+        //     request()->file('file')->storeAs('public/images', $file);
+        // }else{
+        //     $file = null;
+        // }
+
         $task = Task::find($id);
 
         $task -> title = $request -> title;
-        $task -> file = $request -> file;
+        $task -> file = $file;
         $task -> contents = $request -> contents;
         $task -> save();
 
-        //追記
-        return redirect()->route('todo.show', compact('task'));
+        return redirect()->route('todo.index');
     }
 
     /**

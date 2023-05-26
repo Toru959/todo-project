@@ -160,6 +160,7 @@ return [
 
     'attributes' => [
         'title' => 'タイトル',
+        'file' => '画像',
         'contents' => '内容',
     ],
 

@@ -37,11 +37,15 @@
                                 </a>
                               </div>  
                               <div class="p-2 w-full"> 
-                                <form action="{{ route('todo.destroy', $task->id) }}" method="post">
+                                <form method="post" action="{{route('todo.destroy', $task->id)}}" id="delete_{{$task->id}}">
                                   @csrf
                                   @method('delete')
-                                  <button class="text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg">削除</button>
-                                </form>  
+                                <td class="md:px-4 py-3">
+                                  <td class="text-red-400 w-10 text-center">
+                                    <button><a href="#" data-id="{{$task->id}}" onclick="deletePost(this)" class="text-white bg-red-500 border-0 py-2 px-8 focus:outline-none hover:bg-red-600 rounded text-lg">削除</a></button>
+                                  </td>
+                                </td>
+                                </form>
                               </div>
                             </div>
                           </div>
@@ -52,3 +56,11 @@
         </div>
     </div>
 </x-app-layout>
+<script>
+  function deletePost(e){
+    'use strict'
+    if(confirm('本当に削除しても良いですか？')){
+      document.getElementById('delete_'+e.dataset.id).submit();
+    }
+  }
+</script>
