@@ -17,7 +17,7 @@ class TodoController extends Controller
     public function index()
     {
         //
-        $tasks=Task::all();
+        $tasks=Task::latest()->paginate(8);
         // $user = User::all();
 
         // dd($user);
