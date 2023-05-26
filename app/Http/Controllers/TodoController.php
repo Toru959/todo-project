@@ -44,6 +44,11 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required|string|max:258',
+            'contents' => 'required|string|max:1000',
+        ]);
+
         $file = request()->file('file')->getClientOriginalName();
         request()->file('file')->storeAs('public/images', $file);
 
