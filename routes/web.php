@@ -45,5 +45,5 @@ Route::prefix('todo')
     Route::get('/show/{id}', 'show')->name('show');
     Route::get('/{id}/edit', 'edit')->name('edit');
     Route::patch('/update/{id}', 'update')->name('update');
-    Route::post('/destroy/{id}', 'destroy')->name('destroy');
+    Route::delete('/destroy/{id}', 'destroy')->name('destroy');
 });

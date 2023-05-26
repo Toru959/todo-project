@@ -11,6 +11,7 @@
                 <div class="p-6 bg-white border-b border-gray-200">
                   <form method="post" action="{{ route('todo.store') }}" enctype="multipart/form-data">
                     @csrf
+                    <x-auth-validation-errors />
                     <section class="text-gray-600 body-font relative">
                         <div class="container px-5 py-24 mx-auto">
                           <div class="flex flex-col text-center w-full mb-12">
@@ -27,7 +28,7 @@
                               <div class="p-2 w-full">
                                 <div class="relative">
                                   <label class="leading-7 text-sm text-gray-600">画像</label>
-                                  <input type="file" id="file" name="file" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
+                                  <input type="file" id="file" name="file" accept="image/png, image/jpeg, image/jpg" class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
                                 </div>
                               </div>
                               <div class="p-2 w-full">

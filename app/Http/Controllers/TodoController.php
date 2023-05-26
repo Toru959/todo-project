@@ -44,6 +44,11 @@ class TodoController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'title' => 'required|string|max:258',
+            'contents' => 'required|string|max:1000',
+        ]);
+
         $file = request()->file('file')->getClientOriginalName();
         request()->file('file')->storeAs('public/images', $file);
 
@@ -88,12 +93,12 @@ class TodoController extends Controller
     public function edit($id)
     {
         // dd(Task::find($id));
-        $todo = Task::find($id);
+        $task = Task::find($id);
 
-        if (!$todo) { 
+        if (!$task) { 
             abort(404);
         }else{
-            return view('todo.edit', ['todo'=>$todo]);
+            return view('todo.edit', compact('task'));
         }
 
         //追記
@@ -110,15 +115,15 @@ class TodoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $todo = Task::find($id);
+        $task = Task::find($id);
 
-        $todo -> title = $request -> title;
-        $todo -> file = $request -> file;
-        $todo -> contents = $request -> contents;
-        $todo -> save();
+        $task -> title = $request -> title;
+        $task -> file = $request -> file;
+        $task -> contents = $request -> contents;
+        $task -> save();
 
         //追記
-        return redirect()->route('todo.index');
+        return redirect()->route('todo.show', compact('task'));
     }
 
     /**
@@ -130,9 +135,11 @@ class TodoController extends Controller
   
         public function destroy($id)
     {
-        //
-        $task=Task::find($id);
+
+
+        $task = Task::find($id);
         $task->delete();
+
         return redirect()->route('todo.index');
     }
 
