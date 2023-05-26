@@ -15,5 +15,9 @@ return [
 
     'previous' => '&laquo; Previous',
     'next' => 'Next &raquo;',
+    'previous' => '前へ',
+    'next' => '次へ',
+    'showing' => '表示中 :start から :end 件目（全 :total 件中）',
+   
 
 ];
