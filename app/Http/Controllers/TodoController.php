@@ -15,15 +15,33 @@ class TodoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $tasks=Task::latest()->paginate(8);
-        // $user = User::all();
+        $search = $request->search;
+        // $query = Task::search($search); // scopeSearch()を呼びだす。クエリのローカルスコープ
+        $query = Task::with('User')->search($search);
 
-        // dd($user);
+        $tasks = $query->select('id', 'contents', 'file', 'title', 'created_at', 'user_id')->paginate(8);
+        $taskIds = $tasks->pluck('user_id')->toArray();
+        $users = User::whereIn('id', $taskIds)->get();
+        $userNames = $users->pluck('name')->implode(', ');
+            
         
-        return view('todo.index',['tasks' => $tasks]);
+        return view('todo.index', compact('tasks', 'userNames')); //name検索できない（要修正）
+
+        // $search = $request->input('search');
+
+        // $results = [];
+        // $tasks = Task::search($search)->select('id', 'contents', 'file', 'title', 'created_at', 'user_id')->paginate(8);
+    
+        // $userIds = Task::search($search)->pluck('user_id')->toArray();
+        // $users = User::whereIn('id', $userIds)->get();
+        // $userNames = $users->pluck('name')->implode(', ');
+    
+        // $results['tasks'] = $tasks;
+        // $results['userNames'] = $userNames;
+    
+        // return view('todo.index', compact('results'));　//動かない。UserとTasksテーブルを配列で分けるパターン
 
     }
 
@@ -46,8 +64,8 @@ class TodoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:258',
-            'contents' => 'required|string|max:1000',
+            'title' => 'required|string|max:30',
+            'contents' => 'required|string|max:140',
             //fileは必須　追加
             'file' => 'required|image|mimes:jpg,jpeg,png|max:2048',
         ]);
@@ -131,8 +149,8 @@ class TodoController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => 'required|string|max:258',
-            'contents' => 'required|string|max:1000',
+            'title' => 'required|string|max:30',
+            'contents' => 'required|string|max:140',
             // fileは必須　追加
             'file' => 'required|image|mimes:jpg,jpeg,png|max:2048',
         ]);
