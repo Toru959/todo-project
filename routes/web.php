@@ -46,6 +46,8 @@ Route::prefix('todo')
     Route::get('/{id}/edit', 'edit')->name('edit');
     Route::patch('/update/{id}', 'update')->name('update');
     Route::delete('/destroy/{id}', 'destroy')->name('destroy');
+    // Route::get('/comments.create', 'create')->name('comments.create');
+    // Route::post('/comments.store', 'store')->name('comments.store');
 });
 
 // ソフトデリート処理(一覧、詳細、完全削除、復元)
@@ -61,3 +63,7 @@ Route::prefix('deleted-tasks')
     Route::get('records/{id}/restore', [TodoController::class, 'deletedTasksRestore'])
     ->name('deleted-tasks.restore');
 });
+
+Route::get('/comments/create/{task_id}','\App\Http\Controllers\CommentController@create')->name('comments.create');
+
+Route::post('/comments','\App\Http\Controllers\CommentController@store')->name('comments.store');

@@ -37,6 +37,7 @@ class TodoController extends Controller
         return view('todo.create');
     }
 
+
     /**
      * Store a newly created resource in storage.
      *
