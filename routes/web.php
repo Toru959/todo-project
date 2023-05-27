@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\TodoController;
+use App\Http\Controllers\BookmarkController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -46,4 +47,14 @@ Route::prefix('todo')
     Route::get('/{id}/edit', 'edit')->name('edit');
     Route::patch('/update/{id}', 'update')->name('update');
     Route::delete('/destroy/{id}', 'destroy')->name('destroy');
+});
+
+Route::prefix('todo')
+->middleware('auth')
+->name('bookmark.')
+->controller(BookmarkController::class)
+->group(function(){
+Route::get('/tasks/{task_id}/bookmark', 'store')->name('store');
+Route::get('/bookmarks/{bookmark_id}/', 'destroy')->name('destroy');
+Route::get('/bookmark', 'index')->name('index');
 });
