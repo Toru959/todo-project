@@ -165,15 +165,37 @@ class TodoController extends Controller
      * @return \Illuminate\Http\Response
      */
   
-        public function destroy($id)
+    public function destroy($id)
     {
-
-
-        $task = Task::find($id);
-        $task->delete();
+        $task = Task::findOrFail($id)->delete(); // ソフトデリート処理
 
         return redirect()->route('todo.index');
     }
 
+    public function deletedTasksIndex()
+    {
+        $deletedTasks = Task::onlyTrashed()->paginate(8);
+        return view('deleted-tasks', compact('deletedTasks'));
+    }
+
+    public function deletedTasksShow($id)
+    {
+        $deletedTasks = Task::onlyTrashed()->findOrFail($id);
+        return view('deleted-task-show', compact('deletedTasks'));
+    }
+
+    public function deletedTasksDestroy($id)
+    {
+        Task::onlyTrashed()->findOrFail($id)->forceDelete();
+        return redirect()->route('deleted-tasks.index');
+    }
+
+    public function deletedTasksRestore($id)
+    {
+        $restoredRecord = Task::withTrashed()->findOrFail($id);
+        $restoredRecord->restore();
+
+        return redirect()->route('deleted-tasks.index');
+    }
     
 }

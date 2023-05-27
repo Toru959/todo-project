@@ -47,3 +47,17 @@ Route::prefix('todo')
     Route::patch('/update/{id}', 'update')->name('update');
     Route::delete('/destroy/{id}', 'destroy')->name('destroy');
 });
+
+// ソフトデリート処理(一覧、詳細、完全削除、復元)
+Route::prefix('deleted-tasks')
+->middleware('auth')
+->group(function(){
+    Route::get('index', [TodoController::class, 'deletedTasksIndex'])
+    ->name('deleted-tasks.index');
+    Route::get('show/{id}', [TodoController::class, 'deletedTasksShow'])
+    ->name('deleted-tasks.show');
+    Route::delete('destroy/{id}', [TodoController::class, 'deletedTasksDestroy'])
+    ->name('deleted-tasks.destroy');
+    Route::get('records/{id}/restore', [TodoController::class, 'deletedTasksRestore'])
+    ->name('deleted-tasks.restore');
+});
