@@ -32,7 +32,10 @@ class Task extends Model
                     $query->where('title', 'like', '%'.$value.'%')
                     ->orWhere('id', 'like', '%'.$value.'%')
                     ->orWhere('contents', 'like', '%'.$value.'%')
-                    ->orWhere('created_at', 'like', '%'.$value.'%');
+                    ->orWhere('created_at', 'like', '%'.$value.'%')
+                    ->orWhereHas('User', function ($query) use ($value) {
+                        $query->where('name', 'like', '%'.$value.'%');
+                    });
                 });
             }
             return $query;
