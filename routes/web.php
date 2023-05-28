@@ -34,7 +34,7 @@ require __DIR__.'/auth.php';
 // Route::resource('todo', TodoController::class);
 
 
-// こっちの方が書き方がオシャレ
+// 基本のルート設定
 Route::prefix('todo')
 ->middleware('auth')
 ->name('todo.')
@@ -49,16 +49,14 @@ Route::prefix('todo')
     Route::delete('/destroy/{id}', 'destroy')->name('destroy');
 });
 
-// ソフトデリート処理(一覧、詳細、完全削除、復元)
+// ソフトデリート設定(一覧、詳細、完全削除、復元)
 Route::prefix('deleted-tasks')
 ->middleware('auth')
+->name('deleted-tasks.')
+->controller(TodoController::class)
 ->group(function(){
-    Route::get('index', [TodoController::class, 'deletedTasksIndex'])
-    ->name('deleted-tasks.index');
-    Route::get('show/{id}', [TodoController::class, 'deletedTasksShow'])
-    ->name('deleted-tasks.show');
-    Route::delete('destroy/{id}', [TodoController::class, 'deletedTasksDestroy'])
-    ->name('deleted-tasks.destroy');
-    Route::get('records/{id}/restore', [TodoController::class, 'deletedTasksRestore'])
-    ->name('deleted-tasks.restore');
+    Route::get('index', 'deletedTasksIndex')->name('index');
+    Route::get('show/{id}', 'deletedTasksShow')->name('show');
+    Route::delete('destroy/{id}', 'deletedTasksDestroy')->name('destroy');
+    Route::get('records/{id}/restore', 'deletedTasksRestore')->name('restore');
 });
