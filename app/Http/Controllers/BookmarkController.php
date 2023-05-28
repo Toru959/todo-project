@@ -27,6 +27,14 @@ class BookmarkController extends Controller
         return redirect('/todo');
     }
 
+     //ブックマーク削除
+     public function destroy2($bookmark_id)
+     {
+         $bookmark= Bookmark::find($bookmark_id);
+         $bookmark->delete();
+         return redirect('/todo/bookmark');
+     }
+
     // //ブックマークの表示
     public function index()
     {
