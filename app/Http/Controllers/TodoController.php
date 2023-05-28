@@ -17,28 +17,7 @@ class TodoController extends Controller
      */
     public function index(Request $request)
     {
-        // $search = $request->search;
-        // $query = Task::with('User')->search($search)->select('*');
-
-        // $tasks = $query->select('id', 'contents', 'file', 'title', 'created_at', 'user_id',)->paginate(8);
-        // $user_name = $query->select('name');
-        // $taskIds = $tasks->pluck('user_id')->toArray();
-        // $users = User::whereIn('id', $taskIds)->get();
-        // $userNames = $users->pluck('name')->implode(', ');
-            
-        
-        // return view('todo.index', compact('tasks', 'userNames', 'user_name')); //name検索できない（要修正）
-
-        // $search = $request->search;
-        // $query = Task::with('User')->search($search);
-
-        // $tasks = $query->paginate(8);
-        // $taskIds = $tasks->pluck('user_id')->toArray();
-        // $users = User::whereIn('id', $taskIds)->get();
-        // $userNames = $users->pluck('name')->implode(', ');
-
-        // return view('todo.index', compact('tasks', 'userNames'));
-
+        // 通常の表示と検索されたタスクの表示
         $search = $request->search;
         $query = Task::with('User')->search($search);
 
@@ -50,21 +29,6 @@ class TodoController extends Controller
         }
 
         return view('todo.index', compact('tasks', 'taskUserNames'));
-
-        // $search = $request->input('search');
-
-        // $results = [];
-        // $tasks = Task::search($search)->select('id', 'contents', 'file', 'title', 'created_at', 'user_id')->paginate(8);
-    
-        // $userIds = Task::search($search)->pluck('user_id')->toArray();
-        // $users = User::whereIn('id', $userIds)->get();
-        // $userNames = $users->pluck('name')->implode(', ');
-    
-        // $results['tasks'] = $tasks;
-        // $results['userNames'] = $userNames;
-    
-        // return view('todo.index', compact('results'));　//動かない。UserとTasksテーブルを配列で分けるパターン
-
     }
 
     /**
