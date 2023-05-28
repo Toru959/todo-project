@@ -34,8 +34,8 @@
                                 <h2 class="title-font font-medium text-lg text-gray-900">{{ $task->contents }}</h2>
                                 </div>
                             </div>
-                            <form method="post" action="{{ route('comments.store') }}">
-                            @csrf    
+                            <form method="post" action="{{ route('comments.store', ['id' => $task->id]) }}"> {{-- パラメーター追加 --}}
+                            @csrf
                               <div class="p-2 w-full">
                                 <div class="relative">
                                   <label for="contents" class="leading-7 text-sm text-gray-600">コメント</label>

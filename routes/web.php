@@ -64,6 +64,6 @@ Route::prefix('deleted-tasks')
     ->name('deleted-tasks.restore');
 });
 
-Route::get('/comments/create/{task_id}','\App\Http\Controllers\CommentController@create')->name('comments.create');
+Route::get('/comments/create/{id}','\App\Http\Controllers\CommentController@create')->name('comments.create'); //パラメーター変更{task_id}->{id}
 
-Route::post('/comments','\App\Http\Controllers\CommentController@store')->name('comments.store');
+Route::post('/comments/{id}','\App\Http\Controllers\CommentController@store')->name('comments.store'); //パラメータ追加
