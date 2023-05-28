@@ -17,17 +17,39 @@ class TodoController extends Controller
      */
     public function index(Request $request)
     {
-        $search = $request->search;
-        // $query = Task::search($search); // scopeSearch()を呼びだす。クエリのローカルスコープ
-        $query = Task::with('User')->search($search);
+        // $search = $request->search;
+        // $query = Task::with('User')->search($search)->select('*');
 
-        $tasks = $query->select('id', 'contents', 'file', 'title', 'created_at', 'user_id')->paginate(8);
-        $taskIds = $tasks->pluck('user_id')->toArray();
-        $users = User::whereIn('id', $taskIds)->get();
-        $userNames = $users->pluck('name')->implode(', ');
+        // $tasks = $query->select('id', 'contents', 'file', 'title', 'created_at', 'user_id',)->paginate(8);
+        // $user_name = $query->select('name');
+        // $taskIds = $tasks->pluck('user_id')->toArray();
+        // $users = User::whereIn('id', $taskIds)->get();
+        // $userNames = $users->pluck('name')->implode(', ');
             
         
-        return view('todo.index', compact('tasks', 'userNames')); //name検索できない（要修正）
+        // return view('todo.index', compact('tasks', 'userNames', 'user_name')); //name検索できない（要修正）
+
+        // $search = $request->search;
+        // $query = Task::with('User')->search($search);
+
+        // $tasks = $query->paginate(8);
+        // $taskIds = $tasks->pluck('user_id')->toArray();
+        // $users = User::whereIn('id', $taskIds)->get();
+        // $userNames = $users->pluck('name')->implode(', ');
+
+        // return view('todo.index', compact('tasks', 'userNames'));
+
+        $search = $request->search;
+        $query = Task::with('User')->search($search);
+
+        $tasks = $query->paginate(8);
+
+        $taskUserNames = [];
+        foreach ($tasks as $task) {
+            $taskUserNames[$task->id] = $task->User->name;
+        }
+
+        return view('todo.index', compact('tasks', 'taskUserNames'));
 
         // $search = $request->input('search');
 

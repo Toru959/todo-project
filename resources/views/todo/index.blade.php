@@ -11,9 +11,9 @@
                   <section class="text-gray-600 body-font">
                     <form method="get" action="{{ route('todo.index') }}">
                       <input type="text" name="search" placeholder="検索"><br>
-                      <button>検索する</button>
+                      <button class="text-white bg-indigo-500 border-0 py-1 px-2 mt-2 focus:outline-none hover:bg-indigo-600 rounded text-lg">検索する</button>
                     </form>
-                    <div class="container px-5 py-24 mx-auto">
+                    <div class="container px-5 pb-24 mx-auto">
                       <div class="flex flex-col text-center w-full mb-20">
                        <h1 class="text-2xl font-medium title-font mb-4 text-gray-900">タスク一覧</h1>
                        <p class="lg:w-2/3 mx-auto leading-relaxed text-base">タスク管理のストレスを軽減し、自由な時間を手に入れる</p>
@@ -27,7 +27,7 @@
                               </a>
                               <div class="w-full">
                                 <h2 class="title-font font-medium text-lg text-gray-900">{{ $task->title }}</h2>
-                                <h3 class="text-gray-500 mb-3">{{ $userNames}}</h3>
+                                <h3 class="text-gray-500 mb-3">{{ $taskUserNames[$task->id] }}</h3>
                                 <p class="mb-4">{{ $task->created_at->format('Y-m-d H:i') }}</p>
                                 <span class="inline-flex">
                                   <a class="text-gray-500">
