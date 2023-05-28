@@ -23,7 +23,7 @@
                                    <img alt="team" class="flex-shrink-0 rounded-lg w-full h-56 object-cover object-center mb-4" src="{{ asset('storage/images/'.$bookmark->task->file) }}">
                                  </a>
                                <div class="w-full">
-                                 <h2 class="title-font font-medium text-lg text-gray-900">{{ $bookmark->title }}</h2>
+                                 <h2 class="title-font font-medium text-lg text-gray-900">{{ $bookmark->task->title }}</h2>
                                  <h3 class="text-gray-500 mb-3">{{ $bookmark->user->name}}</h3>
                                  <p class="mb-4">{{ $bookmark->created_at->format('Y-m-d H:i') }}</p>
                                  <span class="inline-flex">
