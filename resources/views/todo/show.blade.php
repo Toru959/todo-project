@@ -12,24 +12,45 @@
                     <section class="text-gray-600 body-font relative">
                         <div class="container px-5 py-24 mx-auto text-center items-center">
                           <div class="flex flex-col text-center w-full mb-12">
-                            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">詳細画面</h1>
+                            <h1 class="sm:text-3xl text-2xl font-medium title-font mb-4 text-gray-900">タスク詳細</h1>
                           </div>
                           <div class="lg:w-1/2 md:w-2/3 mx-auto">
                             <div class="flex flex-wrap -m-2">
                               <div class="p-2 w-full">
-                                <div class="relative">
-                                  <h2 class="title-font font-medium text-lg text-gray-900">{{ $task->title }}</h2>
+                              タイトル  
+                                <div class="relative flex justify-center items-center">
+                                  {{-- <label for="title" class="leading-7 text-sm text-gray-600">タイトル</label> --}}
+                                  <h2 class="w-1/2  bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">{{ $task->title }}</h2>
                                 </div>
                               </div>
                               <div class="p-2 w-full">
                                 <div class="relative flex justify-center items-center">
+                                  {{-- <label for="file" class="leading-7 text-sm text-gray-600">画像</label> --}}
                                   <img src={{ asset('storage/images/'.$task->file) }} alt="team" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4">
                                 </div>
                               </div>
                               <div class="p-2 w-full">
+                              内容  
                                 <div class="relative">
-                                  <h3 class="text-gray-500 mb-3">{{ $task->contents }}</h3>
+                                  {{-- <label for="contents" class="leading-7 text-sm text-gray-600">内容</label> --}}
+                                  <h3 class="w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-32 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out">{{ $task->contents }}</h3>
                                 </div>
+                              </div>
+                              <div class="p-2 w-full">
+                                <div class="relative">
+                                コメント一覧
+                                  @foreach($comments as $comment)  
+                                    <div class="relative-user">
+                                      <h3>投稿者:{{ $user_name }}</h3>
+                                    </div>
+                                    <div class="relative-contents">
+                                      <h4>コメント:{{ $contents }}</h4>
+                                    </div>
+                                  {{-- <label for="contents" class="leading-7 text-sm text-gray-600">コメント一覧</label> --}}
+                                  {{-- <h3 class="text-gray-500 mb-3">{{ $comment->contents }}</h3> --}}
+                                  @endforeach
+                                </div>
+
                               </div>
                               <div class="p-2 w-full">
                                 <a href="{{ route('todo.edit',$task->id) }}">

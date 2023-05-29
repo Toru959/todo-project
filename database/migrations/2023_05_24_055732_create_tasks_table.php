@@ -18,6 +18,7 @@ class CreateTasksTable extends Migration
             $table->string('title');
             $table->string('file')->nullable();
             $table->string('contents');
+            $table->string('comment')->nullable();
             // $table->text('image_at');
             $table->foreignId('user_id')
             ->constrained()

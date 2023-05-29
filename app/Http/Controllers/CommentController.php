@@ -28,6 +28,14 @@ class CommentController extends Controller
         $comment -> save(); 
         
         // return redirect()->route('todo.show');
-        return redirect()->route('todo.index'); //とりあえずindexに戻るようにしてる
+        return redirect()->route('todo.show',$id); //とりあえずindexに戻るようにしてる
     }
+
+    // public function show($id)
+    // {
+    //     $comments = Comment::find($id);
+    //     // dd($comments);
+    //     return view('todo.show', compact('comments'));
+        
+    // } 
 }
