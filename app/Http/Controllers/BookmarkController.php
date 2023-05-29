@@ -5,17 +5,17 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Bookmark;
 use App\Models\Task;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class BookmarkController extends Controller
 {
     //ブックマーク登録
-    public function store($task_id)
+    public function store($task_id,$user_id)
     {
         $bookmark= new Bookmark();
         $bookmark->task_id=$task_id;
-        $task = Task::find($task_id);
-        $bookmark->user_id = $task->user_id;
+        $bookmark->user_id=$user_id;
         $bookmark->save();
 
         return redirect('/todo');
@@ -40,7 +40,7 @@ class BookmarkController extends Controller
     // //ブックマークの表示
     public function index()
     {
-       $bookmarks = Bookmark::with('task')->latest()->paginate(8);
+       $bookmarks = Bookmark::where('user_id',auth()->user()->id) ->latest()->paginate(8);
        return view('todo.bookmark', compact('bookmarks'));
     
     }

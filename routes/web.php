@@ -58,7 +58,7 @@ Route::prefix('todo')
 ->name('bookmark.')
 ->controller(BookmarkController::class)
 ->group(function(){
-Route::get('/tasks/{task_id}/bookmark', 'store')->name('store');
+Route::get('/tasks/{task_id}/{user_id}/bookmark', 'store')->name('store');
 Route::get('/bookmarks/{bookmark_id}/', 'destroy')->name('destroy');
 Route::get('/bookmark', 'index')->name('index');
 Route::get('/bookmarks_page/{bookmark_id}', 'destroy2')->name('destroy');
