@@ -14,7 +14,6 @@ class BookmarkController extends Controller
     {
         $bookmark= new Bookmark();
         $bookmark->task_id=$task_id;
-        // $bookmark->user_id=$bookmark->user->id;
         $task = Task::find($task_id);
         $bookmark->user_id = $task->user_id;
         $bookmark->save();

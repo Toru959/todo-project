@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\TodoController;
+
+
 use App\Http\Controllers\BookmarkController;
 use Illuminate\Support\Facades\Route;
 
@@ -48,6 +50,18 @@ Route::prefix('todo')
     Route::patch('/update/{id}', 'update')->name('update');
     Route::delete('/destroy/{id}', 'destroy')->name('destroy');
 });
+
+
+
+
+
+
+
+
+
+
+
+
 
 Route::prefix('todo')
 ->middleware('auth')
