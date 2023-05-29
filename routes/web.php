@@ -48,6 +48,10 @@ Route::prefix('todo')
     // Route::post('/comments.store', 'store')->name('comments.store');
 });
 
+Route::get('/comments/create/{id}', '\App\Http\Controllers\CommentController@create')->name('comments.create');
+
+Route::post('/comments/{id}', '\App\Http\Controllers\CommentController@store')->name('comments.store');
+
 
 Route::prefix('todo')
 ->middleware('auth')
