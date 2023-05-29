@@ -6,24 +6,47 @@ use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class TodoController extends Controller
 {
+    //クロージャーでミドルウェア設定。edit、update、deleteにのみ適用され、
+    //指定されたIDのタスクの所有者と現在のログインユーザーが一致しない場合にのみアクセスを制限する。showには誰でも行ける。
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $id = $request->route()->parameter('id'); 
+            if (!is_null($id)) {
+                $task = Task::findOrFail($id);
+                $userId = $task->user->id;
+                $ownerId = Auth::id();
+                if ($userId !== $ownerId) {
+                    abort(404);
+                }
+            }
+            return $next($request);
+        })->only(['edit', 'update', 'destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $tasks=Task::latest()->paginate(8);
-        // $user = User::all();
+        // 通常の表示と検索されたタスクの表示
+        $search = $request->search;
+        $query = Task::with('User')->search($search);
 
-        // dd($user);
-        
-        return view('todo.index',['tasks' => $tasks]);
+        $tasks = $query->paginate(8);
 
+        $taskUserNames = [];
+        foreach ($tasks as $task) {
+            $taskUserNames[$task->id] = $task->User->name;
+        }
+
+        return view('todo.index', compact('tasks', 'taskUserNames'));
     }
 
     /**
@@ -45,13 +68,27 @@ class TodoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:258',
-            'contents' => 'required|string|max:1000',
+            'title' => 'required|string|max:30',
+            'contents' => 'required|string|max:140',
+            //fileは必須　追加
+            'file' => 'required|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
         $file = request()->file('file')->getClientOriginalName();
         request()->file('file')->storeAs('public/images', $file);
 
+        // $imageFile = $request->file;
+        // if(!is_null($imageFile) && $imageFile->isValid()){
+        //     Storage::putFile('public/images', $imageFile);
+        // }
+
+
+
+        // 画像が添付されている場合
+        // $imagePath = 'storage/public/images/'.$imageFile;
+
+        // 画像が添付されていない場合
+        // $imagePath = null;
 
         $todo = new Task;
         $todo -> title = $request -> title;
@@ -92,9 +129,10 @@ class TodoController extends Controller
      */
     public function edit($id)
     {
+
         // dd(Task::find($id));
         $task = Task::find($id);
-
+       
         if (!$task) { 
             abort(404);
         }else{
@@ -115,15 +153,36 @@ class TodoController extends Controller
      */
     public function update(Request $request, $id)
     {
+        $request->validate([
+            'title' => 'required|string|max:30',
+            'contents' => 'required|string|max:140',
+            // fileは必須　追加
+            'file' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+        ]);
+
+        $file = request()->file('file')->getClientOriginalName();
+        request()->file('file')->storeAs('public/images', $file);
+
+        // 画像なしでも処理は通るが、一覧ページの画像の表示がおかしい。要修正
+        // if(!is_null($request->file)){
+        //     $file = request()->file('file')->getClientOriginalName();
+        //     request()->file('file')->storeAs('public/images', $file);
+        // }else{
+        //     $file = null;
+        // }
+        
         $task = Task::find($id);
 
-        $task -> title = $request -> title;
-        $task -> file = $request -> file;
-        $task -> contents = $request -> contents;
-        $task -> save();
-
-        //追記
-        return redirect()->route('todo.show', compact('task'));
+        if (!$task) { 
+            abort(404);
+        }else{
+            $task -> title = $request -> title;
+            $task -> file = $file;
+            $task -> contents = $request -> contents;
+            $task -> save();
+        }
+        
+        return redirect()->route('todo.index');
     }
 
     /**
@@ -133,15 +192,37 @@ class TodoController extends Controller
      * @return \Illuminate\Http\Response
      */
   
-        public function destroy($id)
+    public function destroy($id)
     {
-
-
-        $task = Task::find($id);
-        $task->delete();
+        $task = Task::findOrFail($id)->delete(); // ソフトデリート処理
 
         return redirect()->route('todo.index');
     }
 
+    public function deletedTasksIndex()
+    {
+        $deletedTasks = Task::onlyTrashed()->paginate(8);
+        return view('deleted-tasks', compact('deletedTasks'));
+    }
+
+    public function deletedTasksShow($id)
+    {
+        $deletedTasks = Task::onlyTrashed()->findOrFail($id);
+        return view('deleted-task-show', compact('deletedTasks'));
+    }
+
+    public function deletedTasksDestroy($id)
+    {
+        Task::onlyTrashed()->findOrFail($id)->forceDelete();
+        return redirect()->route('deleted-tasks.index');
+    }
+
+    public function deletedTasksRestore($id)
+    {
+        $restoredRecord = Task::withTrashed()->findOrFail($id);
+        $restoredRecord->restore();
+
+        return redirect()->route('deleted-tasks.index');
+    }
     
 }

@@ -1,8 +1,6 @@
 <?php
 
 use App\Http\Controllers\TodoController;
-
-
 use App\Http\Controllers\BookmarkController;
 use Illuminate\Support\Facades\Route;
 
@@ -36,7 +34,7 @@ require __DIR__.'/auth.php';
 // Route::resource('todo', TodoController::class);
 
 
-// こっちの方が書き方がオシャレ
+// 基本のルート設定
 Route::prefix('todo')
 ->middleware('auth')
 ->name('todo.')
@@ -50,17 +48,6 @@ Route::prefix('todo')
     Route::patch('/update/{id}', 'update')->name('update');
     Route::delete('/destroy/{id}', 'destroy')->name('destroy');
 });
-
-
-
-
-
-
-
-
-
-
-
 
 
 Route::prefix('todo')
