@@ -15,7 +15,7 @@ class CreateCommentsTable extends Migration
     {
         Schema::create('comments', function (Blueprint $table) {
             $table->id();
-            $table->text('body');
+            $table->string('contents');
             $table->foreignId('task_id')
             ->constrained()
             ->onUpdate('cascade')

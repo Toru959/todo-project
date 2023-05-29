@@ -44,6 +44,8 @@ Route::prefix('todo')
     Route::get('/{id}/edit', 'edit')->name('edit');
     Route::patch('/update/{id}', 'update')->name('update');
     Route::delete('/destroy/{id}', 'destroy')->name('destroy');
+    // Route::get('/comments.create', 'create')->name('comments.create');
+    // Route::post('/comments.store', 'store')->name('comments.store');
 });
 
 
@@ -59,6 +61,7 @@ Route::get('/bookmarks_page/{bookmark_id}', 'destroy2')->name('destroy');
 });
 
 
+
 Route::prefix('deleted-tasks')
 ->middleware('auth')
 ->name('deleted-tasks.')
@@ -69,3 +72,4 @@ Route::prefix('deleted-tasks')
     Route::delete('destroy/{id}', 'deletedTasksDestroy')->name('destroy');
     Route::get('records/{id}/restore', 'deletedTasksRestore')->name('restore');
 });
+

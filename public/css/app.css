@@ -484,6 +484,8 @@ video {
   position: absolute;
 }.relative {
   position: relative;
+}.bottom-0 {
+  bottom: 0px;
 }.left-0 {
   left: 0px;
 }.right-0 {
@@ -510,6 +512,8 @@ video {
   margin-right: -0.5rem;
 }.-mt-px {
   margin-top: -1px;
+}.mb-1 {
+  margin-bottom: 0.25rem;
 }.mb-12 {
   margin-bottom: 3rem;
 }.mb-20 {
@@ -528,8 +532,12 @@ video {
   margin-left: 0.75rem;
 }.ml-4 {
   margin-left: 1rem;
+}.mr-1 {
+  margin-right: 0.25rem;
 }.mr-2 {
   margin-right: 0.5rem;
+}.mr-3 {
+  margin-right: 0.75rem;
 }.mt-1 {
   margin-top: 0.25rem;
 }.mt-2 {
@@ -610,8 +618,6 @@ video {
   flex-shrink: 0;
 }.shrink-0 {
   flex-shrink: 0;
-}.flex-grow {
-  flex-grow: 1;
 }.origin-top {
   transform-origin: top;
 }.origin-top-left {
@@ -684,6 +690,8 @@ video {
   border-left-width: 4px;
 }.border-r {
   border-right-width: 1px;
+}.border-r-2 {
+  border-right-width: 2px;
 }.border-t {
   border-top-width: 1px;
 }.border-gray-100 {
@@ -726,6 +734,8 @@ video {
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
 }.bg-opacity-50 {
   --tw-bg-opacity: 0.5;
+}.bg-opacity-75 {
+  --tw-bg-opacity: 0.75;
 }.fill-current {
   fill: currentColor;
 }.object-cover {
@@ -790,10 +800,14 @@ video {
   padding-bottom: 0.75rem;
 }.pl-3 {
   padding-left: 0.75rem;
+}.pr-3 {
+  padding-right: 0.75rem;
 }.pr-4 {
   padding-right: 1rem;
 }.pt-1 {
   padding-top: 0.25rem;
+}.pt-16 {
+  padding-top: 4rem;
 }.pt-2 {
   padding-top: 0.5rem;
 }.pt-4 {
@@ -838,6 +852,8 @@ video {
   line-height: 1.75rem;
 }.leading-8 {
   line-height: 2rem;
+}.leading-none {
+  line-height: 1;
 }.leading-normal {
   line-height: 1.5;
 }.leading-relaxed {
@@ -1107,8 +1123,6 @@ video {
     max-width: 28rem;
   }.sm\:flex-1 {
     flex: 1 1 0%;
-  }.sm\:flex-row {
-    flex-direction: row;
   }.sm\:items-center {
     align-items: center;
   }.sm\:justify-start {
@@ -1122,14 +1136,15 @@ video {
   }.sm\:px-6 {
     padding-left: 1.5rem;
     padding-right: 1.5rem;
-  }.sm\:pl-8 {
-    padding-left: 2rem;
   }.sm\:pt-0 {
     padding-top: 0px;
   }.sm\:text-left {
     text-align: left;
   }.sm\:text-right {
     text-align: right;
+  }.sm\:text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
   }.sm\:text-3xl {
     font-size: 1.875rem;
     line-height: 2.25rem;
@@ -1150,6 +1165,8 @@ video {
   }
 }@media (min-width: 1024px) {.lg\:w-1\/2 {
     width: 50%;
+  }.lg\:w-1\/3 {
+    width: 33.333333%;
   }.lg\:w-1\/4 {
     width: 25%;
   }.lg\:w-2\/3 {

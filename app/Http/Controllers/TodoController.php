@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Task;
 use App\Models\User;
+use App\Models\Comment;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
 
@@ -59,6 +60,7 @@ class TodoController extends Controller
         return view('todo.create');
     }
 
+
     /**
      * Store a newly created resource in storage.
      *
@@ -112,12 +114,21 @@ class TodoController extends Controller
 
         $task = Task::find($id);
 
-        // DB上に＄idが存在しなければ404を返す。
+        $comments = Comment::find($id);
+        $user_name = $comments->user->name;
+        $contents = $comments->contents;
+
+        // dd($comments);
+        // return view('todo.show', compact('comments'));
+        // dd($task);
         if (!$task) { 
             abort(404);
         }else{
-            return view('todo.show', compact('task'));
+            return view('todo.show', compact('task','comments', 'user_name', 'contents'));
         }
+
+    
+        
     }
 
 
