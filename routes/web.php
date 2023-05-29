@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\TodoController;
-use App\Http\Controllers\SearchController;
+use App\Http\Controllers\BookmarkController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -49,14 +49,14 @@ Route::prefix('todo')
     Route::delete('/destroy/{id}', 'destroy')->name('destroy');
 });
 
-// ソフトデリート設定(一覧、詳細、完全削除、復元)
-Route::prefix('deleted-tasks')
+
+Route::prefix('todo')
 ->middleware('auth')
-->name('deleted-tasks.')
-->controller(TodoController::class)
+->name('bookmark.')
+->controller(BookmarkController::class)
 ->group(function(){
-    Route::get('index', 'deletedTasksIndex')->name('index');
-    Route::get('show/{id}', 'deletedTasksShow')->name('show');
-    Route::delete('destroy/{id}', 'deletedTasksDestroy')->name('destroy');
-    Route::get('records/{id}/restore', 'deletedTasksRestore')->name('restore');
+Route::get('/tasks/{task_id}/bookmark', 'store')->name('store');
+Route::get('/bookmarks/{bookmark_id}/', 'destroy')->name('destroy');
+Route::get('/bookmark', 'index')->name('index');
+Route::get('/bookmarks_page/{bookmark_id}', 'destroy2')->name('destroy');
 });

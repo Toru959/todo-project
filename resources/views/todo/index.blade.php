@@ -3,6 +3,7 @@
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
             {{ __('一覧ページ') }}
         </h2>
+        <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
     </x-slot>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -30,11 +31,16 @@
                                 <h3 class="text-gray-500 mb-3">{{ $taskUserNames[$task->id] }}</h3>
                                 <p class="mb-4">{{ $task->created_at->format('Y-m-d H:i') }}</p>
                                 <span class="inline-flex">
-                                  <a class="text-gray-500">
-                                    <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24">
-
-                                    </svg>
-                                  </a>
+                                      @if($task->likedBy(Auth::user())->count()>0)
+                                      <a href="/todo/bookmarks/{{ $task->likedBy(Auth::user())->firstOrfail()->id }}"><i class="fas fa-bookmark fa-lg"></i>
+                                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24"></svg>
+                                      </a>
+                                      @else
+                                      <a href="/todo/tasks/{{ $task->id }}/bookmark">
+                                        <i class="far fa-bookmark fa-lg"></i>
+                                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24"></svg>
+                                      </a>
+                                      @endif
                                 </span>
                               </div>
                           </div>
