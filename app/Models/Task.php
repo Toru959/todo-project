@@ -22,6 +22,11 @@ class Task extends Model
         return $this->belongsTo('App\Models\User');
     }
 
+    public function comment()
+    {
+        return $this->hasMany('App\Models\Comment');
+    }
+
     public function bookmarks()
     {
         return $this->hasMany('App\Models\Bookmark');
