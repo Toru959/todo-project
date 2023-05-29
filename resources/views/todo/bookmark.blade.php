@@ -24,7 +24,7 @@
                                  </a>
                                <div class="w-full">
                                  <h2 class="title-font font-medium text-lg text-gray-900">{{ $bookmark->task->title }}</h2>
-                                 <h3 class="text-gray-500 mb-3">{{ $bookmark->user->name}}</h3>
+                                 <h3 class="text-gray-500 mb-3">{{ $bookmark->task->user->name}}</h3>
                                  <p class="mb-4">{{ $bookmark->created_at->format('Y-m-d H:i') }}</p>
                                  <span class="inline-flex">
                                   <a href="/todo/bookmarks_page/{{ $bookmark->id }}"><i class="fas fa-bookmark fa-lg"></i>

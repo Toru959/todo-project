@@ -36,7 +36,7 @@
                                         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24"></svg>
                                       </a>
                                       @else
-                                      <a href="/todo/tasks/{{ $task->id }}/bookmark">
+                                      <a href="/todo/tasks/{{ $task->id }}/{{auth()->user()->id}}/bookmark">
                                         <i class="far fa-bookmark fa-lg"></i>
                                         <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24"></svg>
                                       </a>
