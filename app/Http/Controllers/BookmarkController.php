@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Bookmark;
+use App\Models\Task;
 use Illuminate\Support\Facades\Auth;
 
 class BookmarkController extends Controller
@@ -13,7 +14,9 @@ class BookmarkController extends Controller
     {
         $bookmark= new Bookmark();
         $bookmark->task_id=$task_id;
-        $bookmark->user_id=Auth::user()->id;
+        // $bookmark->user_id=$bookmark->user->id;
+        $task = Task::find($task_id);
+        $bookmark->user_id = $task->user_id;
         $bookmark->save();
 
         return redirect('/todo');
