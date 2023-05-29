@@ -48,8 +48,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Task');
     }
 
-    public function comments()
+    public function bookmarks()
     {
-        return $this->hasMany('App\Models\Comment');
+        return $this->hasMany('App\Models\Bookmark');
+
     }
 }

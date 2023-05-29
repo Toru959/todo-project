@@ -22,6 +22,11 @@
                         {{ __('削除済みToDo一覧') }}
                     </x-nav-link>
                 </div>
+                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    <x-nav-link :href="route('bookmark.index')" :active="request()->routeIs('bookmark.index')">
+                        {{ __('ブックマーク') }}
+                    </x-nav-link>
+                </div>
             </div>
 
             <!-- Settings Dropdown -->

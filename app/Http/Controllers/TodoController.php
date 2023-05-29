@@ -11,21 +11,43 @@ use Illuminate\Support\Facades\Storage;
 
 class TodoController extends Controller
 {
+    //クロージャーでミドルウェア設定。edit、update、deleteにのみ適用され、
+    //指定されたIDのタスクの所有者と現在のログインユーザーが一致しない場合にのみアクセスを制限する。showには誰でも行ける。
+    public function __construct()
+    {
+        $this->middleware(function ($request, $next) {
+            $id = $request->route()->parameter('id'); 
+            if (!is_null($id)) {
+                $task = Task::findOrFail($id);
+                $userId = $task->user->id;
+                $ownerId = Auth::id();
+                if ($userId !== $ownerId) {
+                    abort(404);
+                }
+            }
+            return $next($request);
+        })->only(['edit', 'update', 'destroy']);
+    }
+
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
-        $tasks=Task::latest()->paginate(8);
-        // $user = User::all();
+        // 通常の表示と検索されたタスクの表示
+        $search = $request->search;
+        $query = Task::with('User')->search($search);
 
-        // dd($user);
-        
-        return view('todo.index',['tasks' => $tasks]);
+        $tasks = $query->paginate(8);
 
+        $taskUserNames = [];
+        foreach ($tasks as $task) {
+            $taskUserNames[$task->id] = $task->User->name;
+        }
+
+        return view('todo.index', compact('tasks', 'taskUserNames'));
     }
 
     /**
@@ -48,8 +70,8 @@ class TodoController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'title' => 'required|string|max:258',
-            'contents' => 'required|string|max:1000',
+            'title' => 'required|string|max:30',
+            'contents' => 'required|string|max:140',
             //fileは必須　追加
             'file' => 'required|image|mimes:jpg,jpeg,png|max:2048',
         ]);
@@ -118,9 +140,10 @@ class TodoController extends Controller
      */
     public function edit($id)
     {
+
         // dd(Task::find($id));
         $task = Task::find($id);
-
+       
         if (!$task) { 
             abort(404);
         }else{
@@ -142,8 +165,8 @@ class TodoController extends Controller
     public function update(Request $request, $id)
     {
         $request->validate([
-            'title' => 'required|string|max:258',
-            'contents' => 'required|string|max:1000',
+            'title' => 'required|string|max:30',
+            'contents' => 'required|string|max:140',
             // fileは必須　追加
             'file' => 'required|image|mimes:jpg,jpeg,png|max:2048',
         ]);
@@ -158,14 +181,18 @@ class TodoController extends Controller
         // }else{
         //     $file = null;
         // }
-
+        
         $task = Task::find($id);
 
-        $task -> title = $request -> title;
-        $task -> file = $file;
-        $task -> contents = $request -> contents;
-        $task -> save();
-
+        if (!$task) { 
+            abort(404);
+        }else{
+            $task -> title = $request -> title;
+            $task -> file = $file;
+            $task -> contents = $request -> contents;
+            $task -> save();
+        }
+        
         return redirect()->route('todo.index');
     }
 

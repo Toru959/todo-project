@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\TodoController;
+use App\Http\Controllers\BookmarkController;
+use App\Http\Controllers\SearchController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,15 +27,11 @@ Route::get('/dashboard', function () {
 
 require __DIR__.'/auth.php';
 
-// Route::get('/todo/edit', function () {
-//     return view('todo.edit');
-// });
-
 // 初めてだとわかりにくい？
 // Route::resource('todo', TodoController::class);
 
 
-// こっちの方が書き方がオシャレ
+// 基本のルート設定
 Route::prefix('todo')
 ->middleware('auth')
 ->name('todo.')
@@ -50,20 +48,28 @@ Route::prefix('todo')
     // Route::post('/comments.store', 'store')->name('comments.store');
 });
 
-// ソフトデリート処理(一覧、詳細、完全削除、復元)
-Route::prefix('deleted-tasks')
+
+Route::prefix('todo')
 ->middleware('auth')
+->name('bookmark.')
+->controller(BookmarkController::class)
 ->group(function(){
-    Route::get('index', [TodoController::class, 'deletedTasksIndex'])
-    ->name('deleted-tasks.index');
-    Route::get('show/{id}', [TodoController::class, 'deletedTasksShow'])
-    ->name('deleted-tasks.show');
-    Route::delete('destroy/{id}', [TodoController::class, 'deletedTasksDestroy'])
-    ->name('deleted-tasks.destroy');
-    Route::get('records/{id}/restore', [TodoController::class, 'deletedTasksRestore'])
-    ->name('deleted-tasks.restore');
+Route::get('/tasks/{task_id}/bookmark', 'store')->name('store');
+Route::get('/bookmarks/{bookmark_id}/', 'destroy')->name('destroy');
+Route::get('/bookmark', 'index')->name('index');
+Route::get('/bookmarks_page/{bookmark_id}', 'destroy2')->name('destroy');
 });
 
-Route::get('/comments/create/{id}','\App\Http\Controllers\CommentController@create')->name('comments.create'); //パラメーター変更{task_id}->{id}
 
-Route::post('/comments/{id}','\App\Http\Controllers\CommentController@store')->name('comments.store'); //パラメータ追加
+
+Route::prefix('deleted-tasks')
+->middleware('auth')
+->name('deleted-tasks.')
+->controller(TodoController::class)
+->group(function(){
+    Route::get('index', 'deletedTasksIndex')->name('index');
+    Route::get('show/{id}', 'deletedTasksShow')->name('show');
+    Route::delete('destroy/{id}', 'deletedTasksDestroy')->name('destroy');
+    Route::get('records/{id}/restore', 'deletedTasksRestore')->name('restore');
+});
+
