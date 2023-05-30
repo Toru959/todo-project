@@ -41,10 +41,10 @@
                                 コメント一覧
                                   @foreach($comments as $comment)  
                                     <div class="relative-user">
-                                      <h3>投稿者:{{ $user_name }}</h3>
+                                      <h3>投稿者:{{ $comment->user->name }}</h3>
                                     </div>
                                     <div class="relative-contents">
-                                      <h4>コメント:{{ $contents }}</h4>
+                                      <h4>コメント:{{ $comment->contents }}</h4>
                                     </div>
                                   {{-- <label for="contents" class="leading-7 text-sm text-gray-600">コメント一覧</label> --}}
                                   {{-- <h3 class="text-gray-500 mb-3">{{ $comment->contents }}</h3> --}}
