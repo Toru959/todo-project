@@ -38,4 +38,12 @@ class CommentController extends Controller
     //     return view('todo.show', compact('comments'));
         
     // } 
+
+    public function destroy($id)
+    {
+        dd($id);
+        $comment = Comment::find($id);
+        $comment->delete();
+        return redirect()->route('todo.show',$id);
+    }
 }
