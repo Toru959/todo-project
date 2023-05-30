@@ -167,31 +167,32 @@ class TodoController extends Controller
             'title' => 'required|string|max:30',
             'contents' => 'required|string|max:140',
             // fileは必須　追加
-            'file' => 'required|image|mimes:jpg,jpeg,png|max:2048',
+            // 'file' => 'required|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $file = request()->file('file')->getClientOriginalName();
-        request()->file('file')->storeAs('public/images', $file);
-
-        // 画像なしでも処理は通るが、一覧ページの画像の表示がおかしい。要修正
-        // if(!is_null($request->file)){
-        //     $file = request()->file('file')->getClientOriginalName();
-        //     request()->file('file')->storeAs('public/images', $file);
-        // }else{
-        //     $file = null;
-        // }
         
         $task = Task::find($id);
 
-        if (!$task) { 
+        // dd($request->title, $request->contents);
+
+        if(!$task) {
             abort(404);
-        }else{
-            $task -> title = $request -> title;
-            $task -> file = $file;
-            $task -> contents = $request -> contents;
-            $task -> save();
         }
-        
+        if ($request->hasFile('file')) { //画像がアップロードありの処理
+            $file = $request->file('file')->getClientOriginalName();
+            $request->file('file')->storeAs('public/images', $file);
+            $task->title = $request->title;
+            $task->contents = $request->contents;
+            $task->file = $file;
+
+            $task->save();
+        }else{ //画像のアップロードなしの処理
+            $task->title = $request->title;
+            $task->contents = $request->contents;
+
+            $task->save();
+        }
+            
         return redirect()->route('todo.index');
     }
 
