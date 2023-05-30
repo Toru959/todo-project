@@ -1,0 +1,75 @@
+.content{
+    width: 100vw;
+    height: 100vh;
+    background:url(../images/todo-list2.jpg)no-repeat center;
+    background-size: cover;
+    color: #ffffff;
+    position: relative;
+    z-index: 0;
+    overflow:hidden ;
+}
+
+.content::before{
+    content:'';
+    background: inherit;
+    -webkit-filter: blur(5px);
+    -moz-filter:blur(5px);
+    -o-filter:blur(5px);
+    -ms-filter:blur(5px);
+    filter:blur(5px);
+    position: absolute;
+    top: 5px;
+    left: 5px;
+    right: -5px;
+    bottom: -5px;
+    z-index: -1;
+    pointer-events: none;
+
+}
+
+.main-container{
+    margin: 0 auto;
+    width: 80%;
+    padding: 150px 0;
+    letter-spacing: 10px;
+    justify-content: center;
+
+
+}
+
+.main-container>h1
+{
+    text-align: left;
+    font-size: 42px;
+    margin-bottom: 50px;
+}  
+
+.main-container>h2
+{
+    text-align: left;
+    font-size: 28px;
+   
+}  
+
+.left-btn{
+    border-top-left-radius:30px ;
+    border-bottom-left-radius:30px ;
+    padding-left: 30px;
+    width: 300px;
+    font-size: 1.1rem;
+    padding: 16px 0;
+    border: 1px solid orange;
+    display: inline-block;
+    text-align: center;
+}
+.right-btn{
+    border-top-right-radius:30px ;
+    border-bottom-right-radius:30px ;
+    padding-left: 30px;
+    width: 300px;
+    font-size: 1.1rem;
+    padding: 16px 0;
+    border: 1px solid orange;
+    display: inline-block;
+    text-align: center;
+}
