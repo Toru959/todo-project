@@ -41,9 +41,12 @@ class CommentController extends Controller
 
     public function destroy($id)
     {
-        dd($id);
+        $task = Task::find($id);
+        $comments = Comment::where('task_id', $id)->get();
+
         $comment = Comment::find($id);
         $comment->delete();
-        return redirect()->route('todo.show',$id);
+        // return redirect()->route('todo.show',compact('task','comment'));
+        return view('todo.show', compact('task','comments'));
     }
 }

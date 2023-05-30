@@ -48,7 +48,8 @@
                                       <form action="{{ route('comments.destroy', $comment->id) }}" method='post'>
                                         @csrf
                                         @method('delete')
-                                        <button><a href="" class="hover:text-red-500">削除</a></button>
+                                        {{-- <a href="" class="hover:text-red-500">削除</a> --}}
+                                        <button type="submit" class="hover:text-red-500">削除</button>
                                       </form>  
                                     </div>
                                   {{-- <label for="contents" class="leading-7 text-sm text-gray-600">コメント一覧</label> --}}
