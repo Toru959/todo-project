@@ -31,7 +31,7 @@
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">
                     @auth
-                    <a href="{{ url('/todo') }}" class="text-sm left-btn">TODO一覧</a>
+                    <a href="{{ url('/todo') }}" class="text-sm left-btn">ToDo一覧</a>
                     <a class="right-btn" href="{{ route('logout') }}"
                     onclick="event.preventDefault();
                                   document.getElementById('logout-form').submit();">
