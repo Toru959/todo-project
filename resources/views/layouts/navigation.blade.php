@@ -21,10 +21,11 @@
                     <x-nav-link :href="route('todo.create')" :active="request()->routeIs('todo.create')">
                         {{ __('ToDo新規投稿') }}
                     </x-nav-link>
-                </div>
-                <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     <x-nav-link :href="route('bookmark.index')" :active="request()->routeIs('bookmark.index')">
                         {{ __('ブックマーク') }}
+                    </x-nav-link>
+                    <x-nav-link :href="route('deleted-tasks.index')" :active="request()->routeIs('deleted-tasks.index')">
+                        {{ __('削除済みToDo一覧') }}
                     </x-nav-link>
                 </div>
             </div>
@@ -82,6 +83,9 @@
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('deleted-tasks.index')" :active="request()->routeIs('deleted-tasks.index')">
                 {{ __('削除済みToDo一覧') }}
+            </x-responsive-nav-link>
+            <x-responsive-nav-link :href="route('bookmark.index')" :active="request()->routeIs('bookmark.index')">
+                {{ __('ブックマーク') }}
             </x-responsive-nav-link>
         </div>
 
