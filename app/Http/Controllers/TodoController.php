@@ -114,9 +114,8 @@ class TodoController extends Controller
 
         $task = Task::find($id);
 
-        $comments = Comment::find($id);
-        $user_name = $comments->user->name;
-        $contents = $comments->contents;
+        // $comments = Comment::find($id);
+        $comments = Comment::where('task_id', $id)->get();
 
         // dd($comments);
         // return view('todo.show', compact('comments'));
@@ -124,7 +123,7 @@ class TodoController extends Controller
         if (!$task) { 
             abort(404);
         }else{
-            return view('todo.show', compact('task','comments', 'user_name', 'contents'));
+            return view('todo.show', compact('task','comments'));
         }
 
     

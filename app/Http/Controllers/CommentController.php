@@ -23,7 +23,7 @@ class CommentController extends Controller
         // $task = Task::find($request->task_id);
         $comment = new Comment;
         $comment -> contents = $request -> contents;
-        $comment -> user_id = $task->user_id; // taskテーブルのuser_idを取ってくれば大丈夫
+        $comment -> user_id = Auth::id(); // 現在ログインしているユーザー
         $comment -> task_id = $id; // パラメーターがそのままtask_idになる
         $comment -> save(); 
         
