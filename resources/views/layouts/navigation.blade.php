@@ -19,7 +19,7 @@
                         {{ __('ToDo新規投稿') }}
                     </x-nav-link>
                     <x-nav-link :href="route('bookmark.index')" :active="request()->routeIs('bookmark.index')">
-                        {{ __('ブックマーク') }}
+                        {{ __('Bookmark一覧') }}
                     </x-nav-link>
                     <x-nav-link :href="route('deleted-tasks.index')" :active="request()->routeIs('deleted-tasks.index')">
                         {{ __('削除済みToDo一覧') }}
@@ -79,7 +79,7 @@
                 {{ __('ToDo新規投稿') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('bookmark.index')" :active="request()->routeIs('bookmark.index')">
-                {{ __('ブックマーク') }}
+                {{ __('Bookmark') }}
             </x-responsive-nav-link>
             <x-responsive-nav-link :href="route('deleted-tasks.index')" :active="request()->routeIs('deleted-tasks.index')">
                 {{ __('削除済みToDo一覧') }}

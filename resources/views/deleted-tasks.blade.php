@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            削除済みタスク一覧
+            削除済みToDo一覧
         </h2>
     </x-slot>
     <div class="py-12">
@@ -11,7 +11,7 @@
                   <section class="text-gray-600 body-font">
                     <div class="container px-5 py-24 mx-auto">
                       <div class="flex flex-col text-center w-full mb-20">
-                       <h1 class="text-2xl font-medium title-font mb-4 text-gray-900">削除済みタスク一覧</h1>
+                       <h1 class="text-2xl font-medium title-font mb-4 text-gray-900">削除済みToDo一覧</h1>
                        <p class="lg:w-2/3 mx-auto leading-relaxed text-base"></p>
                       </div>
                       <div class="flex flex-wrap -m-4">
