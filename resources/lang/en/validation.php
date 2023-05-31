@@ -126,7 +126,7 @@ return [
     'string' => 'The :attribute must be a string.',
     'timezone' => 'The :attribute must be a valid timezone.',
     'unique' => 'その:attributeは既に使用されています',
-    'uploaded' => 'The :attribute failed to upload.',
+    'uploaded' => ':attributeのアップロードに失敗しました。サイズは2MBまでです。',
     'url' => 'The :attribute must be a valid URL.',
     'uuid' => 'The :attribute must be a valid UUID.',
 
