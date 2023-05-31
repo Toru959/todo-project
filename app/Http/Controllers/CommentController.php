@@ -45,10 +45,10 @@ class CommentController extends Controller
         $comments = Comment::where('task_id', $id)->get();
 
         $comment = Comment::find($id);
-        // $comment->delete();
-        if ($comment) {
-            $comment->delete();
-        }
+        $comment->delete();
+        // if ($comment) {
+        //     $comment->delete();
+        // }
 
        
 
