@@ -25,8 +25,8 @@
     <body class="antialiased">
         <div class="content">
             <div class="main-container">
-                <h1>タスクリストで</h1>
-                <h2>目標を叶える<br>一歩を踏み出そう</h2>
+                <h1>ToDoリストで</h1>
+                <h2>目標を叶える<br>一歩を踏み出そう。</h2>
             </div>
             @if (Route::has('login'))
                 <div class="hidden fixed top-0 right-0 px-6 py-4 sm:block">

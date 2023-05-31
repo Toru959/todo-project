@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-            {{ __('一覧ページ') }}
+            {{ __('ToDo一覧') }}
         </h2>
         <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
     </x-slot>
@@ -16,8 +16,8 @@
                     </form>
                     <div class="container px-5 pb-24 mx-auto">
                       <div class="flex flex-col text-center w-full mb-20">
-                       <h1 class="text-2xl font-medium title-font mb-4 text-gray-900">タスク一覧</h1>
-                       <p class="lg:w-2/3 mx-auto leading-relaxed text-base">タスク管理のストレスを軽減し、自由な時間を手に入れる</p>
+                       <h1 class="text-2xl font-medium title-font mb-4 text-gray-900">ToDo一覧</h1>
+                       <p class="lg:w-2/3 mx-auto leading-relaxed text-base">Todo管理のストレスを軽減し、自由な時間を手に入れる</p>
                       </div>
                       <div class="flex flex-wrap -m-4">
                         @foreach ($tasks as $task)
