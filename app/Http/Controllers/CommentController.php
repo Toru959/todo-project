@@ -38,4 +38,44 @@ class CommentController extends Controller
     //     return view('todo.show', compact('comments'));
         
     // } 
+
+    public function destroy($id)
+    {
+
+        // $task = Task::findOrFail();
+
+        // $comments = Comment::find($id);
+
+        // $task = Task::where('task_id', $comments->task_id)->get();
+
+        $comments = Comment::where('id', $id)->first();
+
+        // dd($comments->user->name);
+
+        $task = Task::where('id', $comments->task_id)
+        ->where('user_id', $comments->user_id)
+        ->first();
+
+        // // コメントが存在しない場合は処理をスキップ
+        // if ($comments->isEmpty()) {
+        //     abort(404);
+        // }
+        // コメントを削除
+        $comments->delete();
+     
+    
+
+    //    return redirect()->route('todo.show', compact('task', 'comment'));
+    //    return redirect()->route('todo.show', compact('comments', 'task', ["id" => $task->id]));
+        // return view('todo.show', compact('task', 'comments'));
+        return redirect()->route('todo.show', ['id' => $task->id])->with(compact('comments', 'task'));
+
+
+
+
+       
+
+        // return redirect()->route('todo.show',compact('task','comment'));
+        // return view('todo.show', compact('task','comments'));
+    }
 }

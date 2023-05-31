@@ -52,6 +52,9 @@ Route::get('/comments/create/{id}', '\App\Http\Controllers\CommentController@cre
 
 Route::post('/comments/{id}', '\App\Http\Controllers\CommentController@store')->name('comments.store');
 
+Route::delete('/comments/destroy/{id}','\App\Http\Controllers\CommentController@destroy')->name('comments.destroy');
+
+
 
 Route::prefix('todo')
 ->middleware('auth')

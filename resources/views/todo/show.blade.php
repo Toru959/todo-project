@@ -40,11 +40,17 @@
                                 <div class="relative">
                                 コメント一覧
                                   @foreach($comments as $comment)  
-                                    <div class="relative-user">
+                                    <div class="relative-user w-full bg-gray-100 bg-opacity-50 rounded border border-gray-300 focus:border-indigo-500 focus:bg-white focus:ring-2 focus:ring-indigo-200 h-36 text-base outline-none text-gray-700 py-1 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out">
                                       <h3>投稿者:{{ $comment->user->name }}</h3>
-                                    </div>
-                                    <div class="relative-contents">
+                                      <br>
                                       <h4>コメント:{{ $comment->contents }}</h4>
+                                      <br>
+                                      <form action="{{ route('comments.destroy', $comment->id) }}" method='post'>
+                                        @csrf
+                                        @method('delete')
+                                        {{-- <a href="" class="hover:text-red-500">削除</a> --}}
+                                        <button type="submit" class="hover:text-red-500">削除</button>
+                                      </form>  
                                     </div>
                                   {{-- <label for="contents" class="leading-7 text-sm text-gray-600">コメント一覧</label> --}}
                                   {{-- <h3 class="text-gray-500 mb-3">{{ $comment->contents }}</h3> --}}
