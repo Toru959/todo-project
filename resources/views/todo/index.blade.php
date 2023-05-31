@@ -25,6 +25,8 @@
                             <div class="h-full flex flex-col items-center text-center border border-gray-300">
                               <a href="{{ route('todo.show',$task->id) }}">
                                 <img alt="team" class="flex-shrink-0 rounded-lg w-full h-56 object-cover object-center mb-4" src="{{ asset('storage/images/'.$task->file) }}">
+                                {{-- <img alt="team" class="flex-shrink-0 rounded-lg w-64 h-64 object-cover object-center mb-4" src="{{ asset('storage/images/'.$task->file) }}" style="object-fit: contain;"> --}}
+
                               </a>
                               <div class="w-full">
                                 <h2 class="title-font font-medium text-lg text-gray-900">{{ $task->title }}</h2>
