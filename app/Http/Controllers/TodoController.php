@@ -38,13 +38,7 @@ class TodoController extends Controller
     {
         // 通常の表示と検索されたタスクの表示
         $search = $request->search;
-        // $query = Task::with('User')->search($search);
-
-        $search = $request->search;
         $query = Task::with('User')->search($search);
-
-        //新しいタスクが左上にくる
-        // $tasks = Task::with('User')->orderBy('created_at', 'desc')->paginate(8);
 
         $tasks = $query->paginate(8);
 
