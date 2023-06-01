@@ -40,10 +40,13 @@ class TodoController extends Controller
         $search = $request->search;
         // $query = Task::with('User')->search($search);
 
-        //　新しいタスクが左上にくる
-        $tasks = Task::with('User')->orderBy('created_at', 'desc')->paginate(8);
+        $search = $request->search;
+        $query = Task::with('User')->search($search);
 
-        // $tasks = $query->paginate(8);
+        //新しいタスクが左上にくる
+        // $tasks = Task::with('User')->orderBy('created_at', 'desc')->paginate(8);
+
+        $tasks = $query->paginate(8);
 
         $taskUserNames = [];
         foreach ($tasks as $task) {
