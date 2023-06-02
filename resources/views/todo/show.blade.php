@@ -26,7 +26,8 @@
                               <div class="p-2 w-full">
                                 <div class="relative flex justify-center items-center">
                                   {{-- <label for="file" class="leading-7 text-sm text-gray-600">画像</label> --}}
-                                  <img src={{ asset('storage/images/'.$task->file) }} alt="team" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4">
+                                  <img src="{{ asset('storage/images/'.$task->file) }}" alt="Image" class="aspect-w-16 aspect-h-9 w-64 h-36">
+                                  {{-- <img src={{ asset('storage/images/'.$task->file) }} alt="team" class="flex-shrink-0 rounded-lg w-48 h-48 object-cover object-center sm:mb-0 mb-4"> --}}
                                 </div>
                               </div>
                               <div class="p-2 w-full">
