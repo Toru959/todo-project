@@ -1,7 +1,7 @@
 .content{
     width: 100vw;
     height: 100vh;
-    background:url(../images/todo-list2.jpg)no-repeat center;
+    background:url(../images/to_do_home_4.webp)no-repeat center;
     background-size: cover;
     color: #ffffff;
     position: relative;
@@ -58,7 +58,7 @@
     width: 300px;
     font-size: 1.1rem;
     padding: 16px 0;
-    border: 1px solid orange;
+    border: 1px solid #6366f1;
     display: inline-block;
     text-align: center;
 }
@@ -69,7 +69,7 @@
     width: 300px;
     font-size: 1.1rem;
     padding: 16px 0;
-    border: 1px solid orange;
+    border: 1px solid #6366f1;
     display: inline-block;
     text-align: center;
 }
