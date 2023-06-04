@@ -53,10 +53,8 @@ function destroy_Bookmark(bookmarkId) {
             // レスポンスを処理
             if (response.status === 'success') {
                 {
-                    // ブックマークが削除された場合の処理
-                    var bookmarkButton = $('#bookmark2'+bookmarkId);
-                    bookmarkButton.find('i').removeClass('fas fa-bookmark fa-lg'); // fas-bookmarkクラスを削除
-                    bookmarkButton.find('i').addClass('far fa-bookmark fa-lg'); // far-bookmarkクラスを追加
+                    var taskElement = $('#task' + bookmarkId);
+                    taskElement.remove(); // タスク要素自体を削除
                 }
             }
         },
