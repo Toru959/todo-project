@@ -46,9 +46,27 @@ class TodoController extends Controller
         foreach ($tasks as $task) {
             $taskUserNames[$task->id] = $task->User->name;
         }
-
-        return view('todo.index', compact('tasks', 'taskUserNames'));
+        // ブックマーク情報を取得し、ビューに渡す
+        $bookmarkInfo = $this->getBookmarkInfo($tasks);
+        return view('todo.index', compact('tasks', 'taskUserNames','bookmarkInfo'));
     }
+
+    private function getBookmarkInfo($tasks)
+    {
+       $bookmarkInfo = [];
+
+       // 現在のユーザーのIDを取得
+       $userId = Auth::id();
+
+    foreach ($tasks as $task) {
+        // ブックマークが存在するかどうかを確認し、結果を配列に格納
+        $isBookmarked = $task->bookmarks()->where('user_id', $userId)->exists();
+        $bookmarkInfo[$task->id] = $isBookmarked;
+    }
+
+    return $bookmarkInfo;
+}
+
 
     /**
      * Show the form for creating a new resource.

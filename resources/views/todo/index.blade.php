@@ -4,6 +4,9 @@
             {{ __('ToDo一覧') }}
         </h2>
         <link href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <script src="{{ asset('js/bookmark.js') }}"></script>
     </x-slot>
     <div class="py-12">
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
@@ -31,17 +34,10 @@
                                 <h2 class="title-font font-medium text-lg text-gray-900">{{ $task->title }}</h2>
                                 <h3 class="text-gray-500 mb-3">{{ $taskUserNames[$task->id] }}</h3>
                                 <p class="mb-4">{{ $task->created_at->format('Y-m-d H:i') }}</p>
-                                <span class="inline-flex">
-                                      @if($task->likedBy(Auth::user())->count()>0)
-                                      <a href="/todo/bookmarks/{{ $task->likedBy(Auth::user())->firstOrfail()->id }}"><i class="fas fa-bookmark fa-lg"></i>
-                                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24"></svg>
-                                      </a>
-                                      @else
-                                      <a href="/todo/tasks/{{ $task->id }}/{{auth()->user()->id}}/bookmark">
-                                        <i class="far fa-bookmark fa-lg"></i>
-                                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24"></svg>
-                                      </a>
-                                      @endif
+                                <span class="inline-flex"> 
+                                  <button id="bookmark{{ $task->id }}" onclick="add_Bookmark('{{ $task->id }}', '{{ auth()->user()->id }}')">
+                                    <i class="{{ $bookmarkInfo[$task->id] ? 'fas fa-bookmark fa-lg' : 'far fa-bookmark fa-lg' }}"></i>
+                                  </button>
                                 </span>
                               </div>
                               <a href="{{ route('comments.create',$task->id) }}">
