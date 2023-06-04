@@ -27,9 +27,8 @@
                           <div class="p-4 lg:w-1/4 md:w-1/2 ">
                             <div class="h-full flex flex-col items-center text-center border border-gray-300">
                               <a href="{{ route('todo.show',$task->id) }}">
-                                <img alt="team" class="flex-shrink-0 rounded-lg w-full h-56 object-cover object-center mb-4" src="{{ asset('storage/images/'.$task->file) }}">
+                                <img src="{{ asset('storage/images/'.$task->file) }}" alt="Image" class="aspect-w-16 aspect-h-9 w-64 h-36">
                                 {{-- <img alt="team" class="flex-shrink-0 rounded-lg w-64 h-64 object-cover object-center mb-4" src="{{ asset('storage/images/'.$task->file) }}" style="object-fit: contain;"> --}}
-
                               </a>
                               <div class="w-full">
                                 <h2 class="title-font font-medium text-lg text-gray-900">{{ $task->title }}</h2>
@@ -42,7 +41,7 @@
                                 </span>
                               </div>
                               <a href="{{ route('comments.create',$task->id) }}">
-                                <button class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg">コメント</button>
+                                <button class="text-white bg-indigo-500 border-0 py-2 px-8 focus:outline-none hover:bg-indigo-600 rounded text-lg my-3">コメント</button>
                               </a>
                           </div>
                         </div>
