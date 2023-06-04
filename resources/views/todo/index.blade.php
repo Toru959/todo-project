@@ -37,18 +37,8 @@
                                 <p class="mb-4">{{ $task->created_at->format('Y-m-d H:i') }}</p>
                                 <span class="inline-flex"> 
                                   <button id="bookmark{{ $task->id }}" onclick="add_Bookmark('{{ $task->id }}', '{{ auth()->user()->id }}')">
-                                    <i class="far fa-bookmark fa-lg"></i>
+                                    <i class="{{ $bookmarkInfo[$task->id] ? 'fas fa-bookmark fa-lg' : 'far fa-bookmark fa-lg' }}"></i>
                                   </button>
-                                      {{-- @if($task->likedBy(Auth::user())->count()>0)
-                                      <a href="/todo/bookmarks/{{ $task->likedBy(Auth::user())->firstOrfail()->id }}"><i class="fas fa-bookmark fa-lg"></i>
-                                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24"></svg>
-                                      </a>
-                                      @else
-                                      <a href="/todo/tasks/{{ $task->id }}/{{auth()->user()->id}}/bookmark">
-                                        <i class="far fa-bookmark fa-lg"></i>
-                                        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-5 h-5" viewBox="0 0 24 24"></svg>
-                                      </a>
-                                      @endif --}}
                                 </span>
                               </div>
                               <a href="{{ route('comments.create',$task->id) }}">

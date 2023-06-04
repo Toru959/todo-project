@@ -61,11 +61,16 @@ class BookmarkController extends Controller
 }
 
      //ブックマーク削除
-     public function destroy2($bookmark_id)
+     public function destroy2(Request $request)
      {
+         $bookmark_id = $request->input('bookmark_id');
          $bookmark= Bookmark::find($bookmark_id);
+
+         if($bookmark){
          $bookmark->delete();
-         return redirect('/todo/bookmark');
+        //  $action='remove';
+         }
+         return  response()->json(['status' => 'success']);
      }
 
     // //ブックマークの表示
